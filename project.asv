@@ -22,6 +22,8 @@ Fc1 = 1000;
 Fc2 = 4000;
 y = ammod(nsms1 ,Fc1 , x1.Fs , 0)+ ammod(nsms2 , Fc2 , x2.Fs , 0)+ammod(nsms3 , Fc2 , x3.Fs , pi/2);
 %1 plot y in time ad freq domains%
+plot(y);
+%plot(abs(fft(y)));
 ffY =abs(fft(y));
 %low pass filters %
 [nums1 , den1] = butter(10 , Fc1*2/x1.Fs);
@@ -35,49 +37,24 @@ z3 = amdemod(y , Fc2 , x3.Fs , pi /2  , 0 , nums3 , den3);
 
 subplot(4, 2, 1);
 plot(t(1:10000), y(1:10000));
-title('modulated Signal in time domin');
+title('modula Signal time');
 xlabel('time(t)');
 ylabel('Amplitude');
 
 subplot(4, 2, 2);
 plot(t(1:10000), ffY(1:10000));
-title('modulated Signal in freq domin');
-xlabel('freq(f)');
+title('Message Signal');
+xlabel('time(t)');
 ylabel('Amplitude');
 
 subplot(4, 2, 3);
 plot(t(1:10000), x1.y(1:10000));
-title('Message Signal x1');
+title('Message Signal');
 xlabel('time(t)');
 ylabel('Amplitude');
 
 subplot(4, 2, 4);
 plot(t(1:10000), z1(1:10000));
-title('demodulated x1');
+title('Message Signal');
 xlabel('time(t)');
 ylabel('Amplitude');
-
-subplot(4, 2, 5);
-plot(t(1:10000), x2.y(1:10000));
-title('Message Signal x2');
-xlabel('time(t)');
-ylabel('Amplitude');
-
-subplot(4, 2, 6);
-plot(t(1:10000), z2(1:10000));
-title('demodulated x2');
-xlabel('time(t)');
-ylabel('Amplitude');
-
-subplot(4, 2, 7);
-plot(t(1:10000), x3.y(1:10000));
-title('Message Signal x3');
-xlabel('time(t)');
-ylabel('Amplitude');
-
-subplot(4, 2, 8);
-plot(t(1:10000), z3(1:10000));
-title('demodulated x3');
-xlabel('time(t)');
-ylabel('Amplitude');
-
